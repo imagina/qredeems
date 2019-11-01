@@ -9,4 +9,5 @@ export default {
   version: moduleVersion,
   items: `${urlBase}/items`,
   redeems: `${urlBase}/redeems`,
+  points: `${urlBase}/points`,
 }
