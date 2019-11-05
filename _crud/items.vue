@@ -49,14 +49,18 @@
                 label: this.$tr('ui.form.name'),
                 value: '',
                 type: 'text',
-                isRequired: true,
+                rules: [
+                  val => !!val || this.$tr('ui.message.fieldRequired')
+                ],
                 isTranslatable: true,
             },
             value: {
               label: this.$tr('qredeems.layout.form.value'),
               value: 0,
               type: 'number',
-              isRequired: true,
+              rules: [
+                val => !!val || this.$tr('ui.message.fieldRequired')
+              ],
               isTranslatable: false,
             },
           },

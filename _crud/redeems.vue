@@ -87,14 +87,18 @@
               label: this.$tr('ui.form.description'),
               value: '',
               type: 'text',
-              isRequired: true,
+              rules: [
+                val => !!val || this.$tr('ui.message.fieldRequired')
+              ],
               isTranslatable: false,
             },
             points: {
               label: this.$tr('qredeems.layout.form.points'),
               value: 0,
               type: 'number',
-              isRequired: true,
+              rules: [
+                val => !!val || this.$tr('ui.message.fieldRequired')
+              ],
               isTranslatable: false,
             },
             
