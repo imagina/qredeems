@@ -9,4 +9,5 @@ export default {
   items: `${urlBase}/items`,
   redeems: `${urlBase}/redeems`,
   points: `${urlBase}/points`,
+  calculates: `${urlBase}/points/calculates/user`,
 }
