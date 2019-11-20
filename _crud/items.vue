@@ -63,7 +63,16 @@
               ],
               isTranslatable: false,
             },
-          },
+            mediasSingle: {
+              name: 'mediasSingle',
+              label: this.$tr('ui.form.image'),
+              value: {},
+              type: 'media',
+              zone: 'mainimage',
+              entity: "Modules\\Iredeems\\Entities\\Item",
+              entityId: null
+            },
+          }
         }
       }
     },
