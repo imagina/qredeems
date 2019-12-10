@@ -1,12 +1,15 @@
 <template></template>
 <script>
-  //Component
-  import crud from '@imagina/qcrud/_components/crud'
-
   export default {
+    data() {
+      return {
+        crudId: this.$uid()
+      }
+    },
     computed: {
       crudData() {
         return {
+          crudId: this.crudId,
           apiRoute: 'apiRoutes.qredeems.items',
           permission: 'iredeems.items',
           create: {
@@ -18,7 +21,8 @@
                 name: 'id', 
                 label: this.$tr('ui.form.id'), 
                 field: 'id',
-                style: 'width: 50px'
+                style: 'width: 50px',
+                sortable: true,
               },
               {
                 name: 'name', 
@@ -32,6 +36,7 @@
                 field: 'createdAt', 
                 align: 'left',
                 format: val => val ? this.$trd(val) : '-',
+                sortable: true,
               },
               {
                 name: 'actions', 
@@ -46,34 +51,45 @@
           formLeft: {
             id: {value: ''},
             name: {
-                label: this.$tr('ui.form.name'),
-                value: '',
-                type: 'text',
+              value: '',
+              type: 'input',
+              isTranslatable: true,
+              props: {
+                label: `${this.$tr('ui.form.name')}*`,
                 rules: [
                   val => !!val || this.$tr('ui.message.fieldRequired')
                 ],
-                isTranslatable: true,
+              }
             },
             value: {
-              label: this.$tr('qredeems.layout.form.value'),
               value: 0,
-              type: 'number',
-              rules: [
-                val => !!val || this.$tr('ui.message.fieldRequired')
-              ],
+              type: 'input',
               isTranslatable: false,
+              props: {
+                type: 'number',
+                label: `${this.$tr('qredeems.layout.form.value')}*`,
+                rules: [
+                  val => !!val || this.$tr('ui.message.fieldRequired')
+                ],
+              }
             },
             mediasSingle: {
-              name: 'mediasSingle',
-              label: this.$tr('ui.form.image'),
               value: {},
               type: 'media',
-              zone: 'mainimage',
-              entity: "Modules\\Iredeems\\Entities\\Item",
-              entityId: null
+              props: {
+                label: this.$tr('ui.form.image'),
+                zone: 'mainimage',
+                entity: "Modules\\Iredeems\\Entities\\Item",
+                enitityId: null
+              }
             },
+
           }
         }
+      },
+      //Crud info
+      crudInfo() {
+        return this.$store.state.qcrudComponent.component[this.crudId] || {}
       }
     },
   }

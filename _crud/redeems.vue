@@ -1,24 +1,26 @@
 <template></template>
 <script>
-  //Component
-  import crud from '@imagina/qcrud/_components/crud'
-
   export default {
+    data() {
+      return {
+        crudId: this.$uid()
+      }
+    },
     computed: {
       crudData() {
         return {
+          crudId: this.crudId,
           apiRoute: 'apiRoutes.qredeems.redeems',
           permission: 'iredeems.redeems',
-          create: {
-            title: this.$tr('qredeems.layout.newRedeem')
-          },
+          create: false,
           read: {
             columns: [
               {
                 name: 'id', 
                 label: this.$tr('ui.form.id'), 
                 field: 'id',
-                style: 'width: 50px'
+                style: 'width: 50px',
+                sortable: true,
               },
               {
                 name: 'user', 
@@ -44,6 +46,7 @@
                 field: 'createdAt', 
                 align: 'left',
                 format: val => val ? this.$trd(val) : '-',
+                sortable: true,
               },
               {
                 name: 'actions', 
@@ -84,26 +87,35 @@
               }
             },
             description: {
-              label: this.$tr('ui.form.description'),
               value: '',
-              type: 'text',
-              rules: [
-                val => !!val || this.$tr('ui.message.fieldRequired')
-              ],
-              isTranslatable: false,
+              type: 'html',
+              isTranslatable: true,
+              props: {
+                label: `${this.$tr('ui.form.description')}*`,
+                rules: [
+                  val => !!val || this.$tr('ui.message.fieldRequired')
+                ],
+              }
             },
             points: {
-              label: this.$tr('qredeems.layout.form.points'),
               value: 0,
-              type: 'number',
-              rules: [
-                val => !!val || this.$tr('ui.message.fieldRequired')
-              ],
+              type: 'input',
               isTranslatable: false,
+              props: {
+                type: 'number',
+                label: `${this.$tr('qredeems.layout.form.points')}*`,
+                rules: [
+                  val => !!val || this.$tr('ui.message.fieldRequired')
+                ],
+              }
             },
             
           },
         }
+      },
+      //Crud info
+      crudInfo() {
+        return this.$store.state.qcrudComponent.component[this.crudId] || {}
       }
     },
   }
